@@ -1,0 +1,55 @@
+﻿@model MIUBlog.WebUI.Models.ProjectDetails
+
+<h1 class="h3">Edit Role</h1>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+
+        <form asp-controller="Project" asp-action="ParticipantList" method="post">
+            <input type="hidden" name="ProjectId" value="@Model.Project.Id">          
+            <h6 class="bg-info text-white p-1">Add to @Model.Project.Title</h6>
+            <table class="table table-bordered table-sm">
+                @if (Model.NonMembers.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="2">Bütün kullanıcılar onaylı veya başvuru yapan yok</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var user in Model.NonMembers)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td style="width: 150px;">
+                                <input type="checkbox" name="IdsToAdd" value="@user.Id">
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+
+            <hr>
+
+            <h6 class="bg-info text-white p-1">Remove from @Model.Project.Title</h6>
+            <table class="table table-bordered table-sm">
+             
+                    @foreach (var user in Model.Members)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td style="width: 150px;">
+                                <input type="checkbox" name="IdsToDelete" value="@user.Id">
+                            </td>
+                        </tr>
+                    }
+                
+            </table>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+
+        </form>
+
+
+    </div>
+</div>

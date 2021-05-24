@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Discussion>
+@{
+    int index = 0;
+}
+
+@if (Model.Count() == 0)
+{
+    <div class="alert-warning"> Kayıt Yok</div>
+
+
+}
+else
+{
+
+
+    <div class="row text-center">
+        @foreach (var item in Model)
+        {
+            <div class="card m-2" style="width: 25rem;">
+                <div class="card-header">
+                </div>
+                <img class="card-img-top" src="~/img/@item.Image" alt="Card image cap">
+
+                <div class="card-block">
+                    <h4 class="card-title">@item.Title</h4>
+                    <p class="card-text">@item.Description</p>
+                    <a asp-controller="Discussion" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">keep reading <i class="fas fa-arrow-right"></i></a>
+
+                </div>
+            </div>
+        }
+    </div>
+
+}

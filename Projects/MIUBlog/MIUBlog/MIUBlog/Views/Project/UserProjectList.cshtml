@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "List";
+}
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+}
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+}
+
+
+<div class="container mt-3">
+    <div class="bg-primary text-white p-1 m-1 text-center">
+        <h2>Project List</h2>
+    </div>
+    <a asp-action="Create" asp-controller="Project" class="btn btn-primary mb-3">Create</a>
+    <br />
+    <div class="row">
+        <div class="col">
+            @if (Model.Count() > 0)
+            {
+                <table data-page-length='3' id="myTable" class="table table-bordered table-striped mt-3">
+
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>is Approved</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>
+                                <img src="~/img/@item.Image" width="100" />
+                            </td>
+                            <td>@item.Title</td>
+                            <td>@item.Date</td>
+                            <td>
+                                @if (item.isApproved)
+                                {
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                }
+                            </td>
+
+                           
+                            <td>
+                                <a class="btn btn-warning btn-sm" asp-controller="Project" asp-action="participantlist" asp-route-projectId="@item.Id">
+                                    Participant list
+                                </a>
+                                <a class="btn btn-warning btn-sm" asp-controller="Project" asp-action="Edit" asp-route-id="@item.Id">
+                                    Update
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    Tartışma Eklenmemiş.
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

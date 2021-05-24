@@ -1,0 +1,16 @@
+﻿@model Project
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="container">
+    <div class="bg-primary text-white p-1 m-1 text-center">
+        <h2>Blog Delete</h2>
+    </div>
+    <div class="bg-danger" asp-validation-summary="All"></div>
+    <form asp-action="Delete" method="post" asp-controller="Project">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-secondary" asp-controller="Blog" asp-action="List">Cancel</a>
+    </form>
+</div>

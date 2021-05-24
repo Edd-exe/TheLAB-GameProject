@@ -1,0 +1,21 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="bg-danger" asp-validation-summary="All"></div>
+<div class="container">
+    <h2>Update Category</h2>
+    <br />
+
+    <form asp-controller="Category" asp-action="Edit" method="post">
+        <input type="hidden" asp-for="CategoryId" />
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-warning">Update</button>
+        <a class="btn btn-secondary" asp-controller="Category" asp-action="List">Cancel</a>
+    </form>
+
+</div>

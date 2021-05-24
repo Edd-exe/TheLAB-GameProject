@@ -1,0 +1,55 @@
+﻿@model Comment
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <div class="container">
+        <div class="bg-primary text-white m-1 p-1  text-center">
+            <h2>Comment Details</h2>
+        </div>
+    </div>
+    <div class="bg-danger" asp-validation-summary="All"></div>
+    <form asp-action="Update">
+        <input type="hidden" asp-for="@Model.CommentId" />
+
+        <ul>
+            <li>
+                @Model.ApplicationUser.NormalizedUserName
+            </li>
+            @if (Model.BlogId != null)
+            {
+                <li>
+                    @Model.Blog.Title
+                </li>
+            }
+            else if (Model.DiscussionId != null)
+            {
+                <li>
+                    @Model.Discussion.Title
+                </li>
+
+            }
+            else if (Model.ProjectId != null)
+            {
+                <li>
+                    @Model.Project.Title
+                </li>
+                
+            }
+
+            <li>
+                @Model.CommentText
+            </li>
+        </ul>
+        <div class="form-control">
+            <label asp-for="isApproved"></label>
+            <input asp-for="isApproved" />
+        </div>
+
+        <input type="submit" value="Update" class="btn btn-primary btn-sm" />|
+        <a asp-controller="Comment" asp-action="Delete" class=" btn btn-sm btn-danger" asp-route-id="@Model.CommentId">Delete</a>|
+        <a asp-controller="Comment" asp-action="Index" class="btn btn-sm btn-secondary">Cancel</a>
+    </form>
+</div>
+
+

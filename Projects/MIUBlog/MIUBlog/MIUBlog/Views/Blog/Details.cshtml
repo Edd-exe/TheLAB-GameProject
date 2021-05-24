@@ -1,0 +1,107 @@
+﻿@model BlogModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            @await Component.InvokeAsync("Categories")
+        </div>
+        <div class="col-md-9">
+            <div class="card mb-2">
+                <img class="card-img-top" src="~/img/@Model.Blog.Image" alt="Card image cap">
+
+                <div class="card-block">
+                    <br />
+                    <h3 class="card-title text-left" style="display:inline-block;">@Model.Blog.Title</h3><br />
+                    <p class="card-title text-right" style="display:inline-block;"> <i class="far fa-user-circle"></i>&nbsp;@Model.Blog.ApplicationUser.NormalizedUserName</p>
+                    <p class="card-text">@Model.Blog.Description</p>
+                    <p class="card-text">@Html.Raw(Model.Blog.Body)</p>
+                    <h5> Yorumlar </h5>
+                    @if (Model.Comments.Count() == 0)
+                    {
+                        <p> Bu blogla ilgiliz henüz yorum yapılmamış</p>
+                    }
+                    else 
+                    {
+
+
+                        @foreach (var comment in Model.Comments)
+                        {
+
+                            <div class="card">
+                                <div class="card-header d-flex">
+                                    <span style="display:inline-block" class="text-left"> <i class="far fa-user-circle"></i>&nbsp;@comment.ApplicationUser.NormalizedUserName</span>
+                                    <span style="display:inline-block" class="ml-auto"> @comment.Date </span>
+                                </div>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                        <p>@comment.CommentText</p>
+
+                                    </blockquote>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        }
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <form method="post" asp-action="Create" asp-route-blogId="@Model.Blog.BlogId" asp-controller="Comment">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="font-weight-bold">Yorum yap</h4>
+                                </div>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+
+                                        <textarea class="form-control" name="commentText" id="commentText" placeholder="Username" aria-label="Username">
+                                            
+                                        </textarea>
+
+                                        <button type="submit" class="btn btn-outline-secondary rounded-pill mt-1" onclick="alert('Yorumunuz gönderildi. Onaylanma sürecinde')">Gönder</button>
+                                        <!--
+                                        <div class="alert alert-success">
+                                            <strong>Success!</strong> Indicates a successful or positive action.
+                                        </div>
+                                        -->
+                                    </blockquote>
+                                </div>
+                            </div>
+
+                            <br />
+
+                        </form>
+
+                    }
+                    else
+                    {
+                        <div class="form-control">
+                            <input class="form-control" disabled="disabled" placeholder="Yorum yapmak için üye olunuz" aria-label="Yorum yapmak için üye olunuz" />
+
+
+                        </div>
+                        <a class="btn btn-secondary" onclick="getMessage()"> Gönder </a>
+
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+   <script>
+       function getMessage() {
+           alert("Yorum Yapmak İçin Lütfen Üye Olunuz");
+       }
+   </script>
