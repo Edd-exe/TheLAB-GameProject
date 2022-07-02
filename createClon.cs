@@ -21,8 +21,8 @@ public class createClon : MonoBehaviour
     public GameObject barrier2;
     public GameObject barrier3;
     public GameObject barrier4;
-    
-    
+
+    //test push
     //. . .
     //public TMPro.TextMeshProUGUI scoretxt;
     //Play py = new Play();
